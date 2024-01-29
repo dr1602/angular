@@ -13,3 +13,14 @@
 <p> La suma de 3 + 3 es igual a {{ 3 + 3 }} </p>
 
 <span> Hola, мениа сабут {{ name }} y tengo {{ age }} años.</span>
+
+<hr />
+
+<img [src]="img" [loading]='loading' alt="">
+<input type="text" [value]="name">
+<!-- esto es property biding, que es enlazar una variable a la propiedad de un elemento. -->
+<button [disabled]="disabled">Click me</button>
+
+<p> person: {{ person.name }}</p>
+<img [src]='person.avatar' alt="">
+<input type="number" [value]='person.age'>

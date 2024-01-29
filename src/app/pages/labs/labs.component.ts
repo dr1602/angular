@@ -19,5 +19,14 @@ export class LabsComponent {
   name = 'David';
   age = 21;
   private edad = 21;
+  disabled = true;
+  img = 'https://i.pinimg.com/564x/2a/11/bd/2a11bd2bea14f0e058b0c5fa0779b2a6.jpg';
+  loading = 'lazy';
+
+  person = {
+    name: 'Dave',
+    age: 17,
+    avatar: 'https://i.pinimg.com/564x/51/58/8e/51588e6bf466f00571424d3220de3d36.jpg',
+  }
 
 }
