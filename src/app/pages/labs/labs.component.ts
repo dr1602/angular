@@ -29,4 +29,12 @@ export class LabsComponent {
     avatar: 'https://i.pinimg.com/564x/51/58/8e/51588e6bf466f00571424d3220de3d36.jpg',
   }
 
+  clickHandler() {
+    alert('Hola')
+  }
+
+  changeHandler(event: Event) {
+    console.log(event)
+  }
+
 }
