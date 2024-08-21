@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,15 +8,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.css'
 })
+
 export class LabsComponent {
   welcome = 'hola mi primer test.';
-  tasks = [
+  
+  tasks = signal([
     'Instalar el Angular CLI.',
     'Crear el proyecto.',
     'Crear componentes.',
     'Crear servicio'
-  ]
-  name = 'David';
+  ])
+
+  name = signal('David');
   age = 21;
   private edad = 21;
   disabled = true;
@@ -34,12 +37,13 @@ export class LabsComponent {
   }
 
   changeHandler(event: Event) {
-    console.log(event)
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+    this.name.set(newValue)
   }
 
   keydownHandler(event: KeyboardEvent){
     const input = event.target as HTMLInputElement;
-
     console.log(input.value)
   }
 
