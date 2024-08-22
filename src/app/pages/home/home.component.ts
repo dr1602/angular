@@ -68,4 +68,20 @@ export class HomeComponent {
       )
     )
   }
+
+  updateTask(index: number) {
+    // a[0] = 'other thing' <- no
+    // recuerda es importante que sea un metodo unmutable
+    this.tasks.update((tasks) => {
+      return tasks.map((task, position) => {
+        if (position === index ) {
+          return {
+            ...task,
+            completed: !task.completed
+          }
+        }
+        return task;
+      })
+    })
+  }
 }
