@@ -1,10 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-labs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.css'
 })
@@ -27,10 +29,26 @@ export class LabsComponent {
   loading = 'lazy';
 
   person = signal({
-    name: 'david',
+    name: 'David',
     age: 17,
     avatar: 'https://i.pinimg.com/564x/51/58/8e/51588e6bf466f00571424d3220de3d36.jpg',
   })
+
+  colorCtrl = new FormControl();
+  colorSubscription: Subscription;
+
+  constructor() {
+    this.colorSubscription  = this.colorCtrl.valueChanges.subscribe(value => {
+      console.log('Color changed to:', value);
+    })
+  }
+
+  ngOnDestroy(){
+    if(this.colorSubscription) {
+      this.colorSubscription.unsubscribe()
+      console.log('Color subscription has been unsubscribed.');
+    }
+  }
 
   clickHandler() {
     alert('Hola')
@@ -58,4 +76,14 @@ export class LabsComponent {
     })
   }
 
+  changeName(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+    this.person.update(prevState => {
+      return {
+        ...prevState,
+        name: newValue,
+      }
+    })
+  }
 }
