@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 
 export class LabsComponent {
   welcome = 'hola mi primer test.';
-  
+
   tasks = signal([
     'Instalar el Angular CLI.',
     'Crear el proyecto.',
@@ -26,11 +26,11 @@ export class LabsComponent {
   img = 'https://i.pinimg.com/564x/2a/11/bd/2a11bd2bea14f0e058b0c5fa0779b2a6.jpg';
   loading = 'lazy';
 
-  person = {
-    name: 'Dave',
+  person = signal({
+    name: 'david',
     age: 17,
     avatar: 'https://i.pinimg.com/564x/51/58/8e/51588e6bf466f00571424d3220de3d36.jpg',
-  }
+  })
 
   clickHandler() {
     alert('Hola')
@@ -45,6 +45,17 @@ export class LabsComponent {
   keydownHandler(event: KeyboardEvent){
     const input = event.target as HTMLInputElement;
     console.log(input.value)
+  }
+
+  changeAge(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+    this.person.update(prevState => {
+      return {
+        ...prevState,
+        age: parseInt(newValue, 10),
+      }
+    })
   }
 
 }

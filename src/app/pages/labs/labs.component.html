@@ -23,9 +23,9 @@
   <!-- esto es property biding, que es enlazar una variable a la propiedad de un elemento. -->
   <button [disabled]="disabled">Click me</button>
 
-  <p> person: {{ person.name }}</p>
-  <img [src]='person.avatar' alt="">
-  <input type="number" [value]='person.age'>
+  <p> person: {{ person().name }}</p>
+  <img [src]='person().avatar' alt="">
+  <input type="number" [value]='person().age'>
 
   <hr />
 
@@ -33,16 +33,16 @@
   <button (dblclick)="clickHandler()" class="double">Click me double click</button>
 
   <p>(change)</p>
-  <input type="number" [value]="person.age" (change)="changeHandler($event)">
+  <input type="number" [value]="person().age" (change)="changeHandler($event)">
 
   <p>(change)</p>
-  <input type="text" [value]="person.name" (change)="changeHandler($event)">
+  <input type="text" [value]="person().name" (change)="changeHandler($event)">
 
   <p>(keydown)</p>
-  <input type="text" [value]="person.name" (keydown)="keydownHandler($event)">
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
 
   <p>(keydown shift)</p>
-  <input type="text" [value]="person.name" (keydown.shift.t)="clickHandler()">
+  <input type="text" [value]="person().name" (keydown.shift.t)="clickHandler()">
 
   <hr />
 
@@ -61,5 +61,30 @@
     </li>
   </ul>
 
+  <hr />
+
+  <input type="number" [value]='person().age' (change)='changeAge($event)'>
+
+  <hr/>
+
+  <div *ngIf="1 === 1">
+    My content
+  </div>
+
+  <div *ngIf="1 !== 1">
+    My content
+  </div>
+
+  <div *ngIf="name() === 'david'">
+    Bienvenido sir.
+  </div>
+
+  <div *ngIf="person().name === 'david' && person().age > 18; else elseBlock">
+    Bienvenido Lord y Principe. Mayor de Edad
+  </div>
+
+  <ng-template #elseBlock>
+    Soy solamente un duque menor de edad.
+  </ng-template>
 
 </div>
