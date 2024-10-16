@@ -1,12 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Task } from './../../models/task.model'
+import { Task } from './../../models/task.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -28,7 +29,14 @@ export class HomeComponent {
       title: 'Crear interfaz',
       completed: false,
     },
-  ])
+  ]);
+
+  newTaskCtrl = new FormControl('', {
+    nonNullable: true,
+    validators: [
+      Validators.required,
+    ]
+  })
 
   get incompleteTasks() {
     return this.tasks().filter(task => !task.completed);
@@ -38,15 +46,25 @@ export class HomeComponent {
     return this.tasks().filter(task => !!task.completed);
   }
 
-  changeHandler(event: KeyboardEvent) {
-    const input = event.target as HTMLInputElement;
-    if (event.key === 'Enter' && input.value.trim() !== '') {
-      const newTask = input.value.trim()
-      this.addTask(newTask);
-      input.value = '';
+  changeHandler() {
+    if(this.newTaskCtrl.valid && this.newTaskCtrl.value.trim() !== ''){
+      const value = this.newTaskCtrl.value
+      this.addTask(value);
+      this.newTaskCtrl.setValue('');
+    } else if (this.newTaskCtrl.value.trim() === '') {
+      this.newTaskCtrl.setValue('');
     }
-
   }
+
+  // changeHandler(event: KeyboardEvent) {
+  //   const input = event.target as HTMLInputElement;
+  //   if (event.key === 'Enter' && input.value.trim() !== '') {
+  //     const newTask = input.value.trim()
+  //     this.addTask(newTask);
+  //     input.value = '';
+  //   }
+
+  // }
 
   addTask(title: string) {
     const newTask = {

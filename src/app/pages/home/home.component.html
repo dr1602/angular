@@ -9,9 +9,13 @@
         autofocus
         name="filterName"
         type="text"
-        (keydown)="changeHandler($event)"
-        onfocus="this.value=''"
+        [formControl]="newTaskCtrl"
+        (keydown.enter)="changeHandler()"
       />
+      <!-- 
+      onfocus="this.value=''"
+      (keydown)="changeHandler($event)" 
+      -->
     </div>
   </header>
   <div class="container todoapp-wrapper">
